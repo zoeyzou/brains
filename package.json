@@ -24,6 +24,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/react": "^16.8.4",
+    "@types/react-dom": "^16.8.2",
     "prettier": "^1.16.4",
     "typescript": "^3.3.3333"
   }
