@@ -3,7 +3,7 @@ import { theme } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${theme.color.darkgrey};
+    background-color: ${theme.color.lightGrey};
     font-size: 1.5rem;
     font-family: ${theme.font.body};
 
