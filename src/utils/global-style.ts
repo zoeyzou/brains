@@ -1,14 +1,14 @@
-import { createGlobalStyle } from "./styled-components";
-import { Theme } from "./theme";
+import { createGlobalStyle } from './styled-components';
+import { theme } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${Theme.color.darkgrey};
+    background-color: ${theme.color.darkgrey};
     font-size: 1.5rem;
-    font-family: ${Theme.font.body};
+    font-family: ${theme.font.body};
 
     @media (min-width: 900px) {
-      background-color: ${Theme.color.lightgrey};
+      background-color: ${theme.color.lightgrey};
     }
   }
   * {
