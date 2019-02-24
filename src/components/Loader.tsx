@@ -61,6 +61,7 @@ const typing = (theme: 'dark' | 'light' | undefined) => keyframes`
 const Loader = styled(_Loader)`
   width: 10px;
   height: 10px;
+  margin-left: -20px;
   border-radius: 50%;
   animation: ${({ loaderTheme }) => typing(loaderTheme)} 1s linear infinite
     alternate;
