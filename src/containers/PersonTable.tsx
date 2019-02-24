@@ -5,7 +5,6 @@ import { Person } from '../models/person';
 import { LoadingState } from '../models/loading-state';
 import { loadPersons } from '../utils/api';
 import Loader from '../components/Loader';
-import TableRow from '../components/TableRow';
 import TableBody from '../components/TableBody';
 import { getValueGroupsFromArrayOfObject } from '../utils/helper';
 
@@ -17,6 +16,7 @@ type PersonTableState = {
   loadingState: LoadingState;
   persons: Person[] | null;
   errMsg: string | null;
+  expandedRowId: number | null;
 };
 
 class _PersonTable extends React.Component<PersonTableProps, PersonTableState> {
@@ -27,6 +27,7 @@ class _PersonTable extends React.Component<PersonTableProps, PersonTableState> {
       loadingState: LoadingState.default,
       persons: null,
       errMsg: null,
+      expandedRowId: null,
     };
   }
 
@@ -60,23 +61,69 @@ class _PersonTable extends React.Component<PersonTableProps, PersonTableState> {
     return data;
   };
 
+  onRowClick = (rowId: number) => {
+    const previousId = this.state.expandedRowId;
+    if (rowId === previousId) {
+      this.setState({ expandedRowId: null });
+    } else {
+      this.setState({ expandedRowId: rowId });
+    }
+  };
+
   public render() {
     const { className } = this.props;
-    const { loadingState, persons, errMsg } = this.state;
+    const { loadingState, persons, errMsg, expandedRowId } = this.state;
+
+    if (loadingState === LoadingState.pending) {
+      return (
+        <div className={className}>
+          <div className='d-wrapper'>
+            <div className='loader'>
+              <Loader />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (
+      loadingState === LoadingState.success &&
+      persons &&
+      persons.length === 0
+    ) {
+      return (
+        <div className={className}>
+          <div className='d-wrapper'>
+            <p>It seems like no available data.</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (loadingState === LoadingState.failure) {
+      return (
+        <div className={className}>
+          <div className='d-wrapper'>
+            <p>{errMsg}</p>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className={className}>
         <div className='wrapper'>
           <TableHead
             items={['Name', 'Year Of Birth', 'Children', 'Profession', '']}
+            hasIcon={true}
           />
-          {loadingState === LoadingState.pending ? (
-            <div className='loader'>
-              <Loader />
-            </div>
-          ) : (
-            <TableBody data={this.getDataWithoutId()} ids={this.getIds()} />
-          )}
+          <TableBody
+            data={this.getDataWithoutId()}
+            ids={this.getIds()}
+            onClick={this.onRowClick}
+            expandedId={expandedRowId && expandedRowId}
+            hasIcon={true}
+          />
         </div>
       </div>
     );
