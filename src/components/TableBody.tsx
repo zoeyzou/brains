@@ -7,13 +7,17 @@ type TableBodyProps = {
   data: Array<Array<string | number>>;
   ids?: number[] | undefined;
   onClick?: (id: number) => void;
+  expandedId?: number | null;
+  hasIcon?: boolean;
 };
 
 const _TableBody: React.FunctionComponent<TableBodyProps> = ({
   className,
   data,
   ids,
+  expandedId,
   onClick,
+  hasIcon,
 }) => {
   return (
     <div className={className}>
@@ -24,10 +28,12 @@ const _TableBody: React.FunctionComponent<TableBodyProps> = ({
             id={ids && ids[index]}
             items={item}
             onClick={onClick}
+            isExpanded={ids && expandedId === ids[index]}
+            hasIcon={hasIcon}
           />
         ))}
       </ul>
-      <p className='endpage'>End of page</p>
+      {ids && ids.length && <p className='endpage'>End of page</p>}
     </div>
   );
 };

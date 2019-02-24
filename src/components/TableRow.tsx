@@ -2,6 +2,7 @@ import * as React from 'react';
 import TableItem from './TableItem';
 import styled from 'styled-components';
 import TriangleIcon from './TriangleIcon';
+import DetailTable from '../containers/DetailTable';
 
 type TableRowProps = {
   className?: string;
@@ -9,6 +10,7 @@ type TableRowProps = {
   id?: number;
   onClick?: (id: number) => void;
   isExpanded?: boolean;
+  hasIcon?: boolean;
 };
 
 const _TableRow: React.FunctionComponent<TableRowProps> = ({
@@ -17,32 +19,46 @@ const _TableRow: React.FunctionComponent<TableRowProps> = ({
   id,
   onClick,
   isExpanded,
+  hasIcon,
 }) => {
   const clickHandler = () => {
+    console.log('clicked' + id);
     onClick && id && onClick(id);
   };
   return (
-    <TableItem className={className} as='li' onClick={clickHandler}>
-      {items.map(item => (
-        <div key={item + '_' + id}>
-          {item !== 'icon' ? item : <TriangleIcon isFocused={isExpanded} />}
-        </div>
-      ))}
-    </TableItem>
+    <>
+      <TableItem
+        className={hasIcon ? className + ' hasIcon' : className}
+        as='li'
+        onClick={clickHandler}
+      >
+        {items.map((item, index) => (
+          <div key={item + '_' + id}>
+            {hasIcon && index === items.length - 1 ? (
+              <TriangleIcon isFocused={isExpanded} />
+            ) : (
+              item
+            )}
+          </div>
+        ))}
+      </TableItem>
+      {isExpanded && id && <DetailTable id={id} />}
+    </>
   );
 };
 
 _TableRow.defaultProps = {
   isExpanded: false,
+  hasIcon: false,
 };
 
 const TableRow = styled(_TableRow)`
-  height: calc(35px + 1vh);
+  height: calc(30px + 1vh);
   font-family: ${({ theme }) => theme.font.body};
   background-color: ${({ theme }) => theme.color.grey};
   color: ${({ theme }) => theme.color.lightgrey};
   text-transform: capitalize;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   letter-spacing: 0.5px;
   text-align: center;
   transition: all 0.2s ease-in;
@@ -53,19 +69,30 @@ const TableRow = styled(_TableRow)`
     font-weight: bolder;
   }
 
-  div:nth-of-type(4),
   div:last-of-type {
-    display: none;
+    display: inherit;
+  }
+
+  &.hasIcon {
+    height: calc(35px + 1vh);
+    font-size: 1.4rem;
+
+    div:nth-of-type(4),
+    div:last-of-type {
+      display: none;
+    }
   }
 
   @media (min-width: 900px) {
-    div:nth-of-type(4),
-    div:last-of-type {
-      display: inherit;
-    }
+    &.hasIcon {
+      div:nth-of-type(4),
+      div:last-of-type {
+        display: inherit;
+      }
 
-    div:last-of-type {
-      flex: 0 0 50px;
+      div:last-of-type {
+        flex: 0 0 50px;
+      }
     }
   }
 `;
