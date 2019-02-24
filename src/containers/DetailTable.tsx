@@ -38,7 +38,7 @@ class _DetailTable extends React.Component<DetailTableProps, DetailTableState> {
       )
       .catch((err: string) =>
         this.setState({
-          errMsg: err,
+          errMsg: JSON.stringify(err),
           loadingState: LoadingState.failure,
           details: [],
         })

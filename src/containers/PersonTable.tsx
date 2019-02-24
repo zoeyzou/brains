@@ -39,7 +39,7 @@ class _PersonTable extends React.Component<PersonTableProps, PersonTableState> {
       )
       .catch((err: string) =>
         this.setState({
-          errMsg: err,
+          errMsg: JSON.stringify(err),
           loadingState: LoadingState.failure,
           persons: [],
         })
