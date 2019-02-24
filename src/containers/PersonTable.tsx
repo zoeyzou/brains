@@ -77,7 +77,7 @@ class _PersonTable extends React.Component<PersonTableProps, PersonTableState> {
     if (loadingState === LoadingState.pending) {
       return (
         <div className={className}>
-          <div className='d-wrapper'>
+          <div className='wrapper'>
             <div className='loader'>
               <Loader />
             </div>
@@ -93,7 +93,7 @@ class _PersonTable extends React.Component<PersonTableProps, PersonTableState> {
     ) {
       return (
         <div className={className}>
-          <div className='d-wrapper'>
+          <div className='wrapper'>
             <p>It seems like no available data.</p>
           </div>
         </div>
@@ -103,7 +103,7 @@ class _PersonTable extends React.Component<PersonTableProps, PersonTableState> {
     if (loadingState === LoadingState.failure) {
       return (
         <div className={className}>
-          <div className='d-wrapper'>
+          <div className='wrapper'>
             <p>{errMsg}</p>
           </div>
         </div>
