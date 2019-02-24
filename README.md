@@ -11,9 +11,9 @@ Tools and stack:
 
 ## Available Scripts
 
-Clone the project and run:
+- First install all the dependencies by running `npm install`
 
-### `npm start`
+- secondly run `npm start`
 
 The browser will automatically open a new page for the project on `localhost:3000`.
 
