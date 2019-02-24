@@ -15,7 +15,7 @@ type Color = {
 
 export const theme: Theme = {
   font: {
-    logo: '',
+    logo: 'Shojumaru',
     title: "'Roboto Slab', serif",
     body: "'Raleway', sans-serif",
   },
@@ -25,5 +25,6 @@ export const theme: Theme = {
     darkgrey: '#707070',
     lightgrey: '#D9D4CF',
     darkwhite: '#F0E5DE',
+    white: '#FFF',
   },
 };
